@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import Model.CalculoEntrada;
-import Model.CalculoSaida;
+import DTO.CalculoEntrada;
+import DTO.CalculoSaida;
 import ch.qos.logback.core.util.ContentTypeUtil;
 
 @RunWith(SpringRunner.class)

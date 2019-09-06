@@ -12,14 +12,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import Model.CalculoEntrada;
-import Model.CalculoSaida;
+import DTO.CalculoEntrada;
+import DTO.CalculoSaida;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
+@Api(value="Calculo Selic API")
 @RestController
 public class BackendController {
 
+	@ApiOperation(value="Calcula as parcelas a serem pagas", notes="Consulta síncrona.")
 	@RequestMapping(value = "/calculoSelic", method = RequestMethod.POST)
-	public ResponseEntity<List<CalculoSaida>> updateWithMultipleObjects(@RequestBody CalculoEntrada calculoEntrada) {
+	public ResponseEntity<List<CalculoSaida>> updateWithMultipleObjects(
+			@ApiParam(value="exemplo {\r\n" + 
+					"    \"produto\": [\r\n" + 
+					"        {\r\n" + 
+					"            \"codigo\": 123,\r\n" + 
+					"            \"nome\": \"Nome do Produto\",\r\n" + 
+					"            \"valor\": 100\r\n" + 
+					"        }\r\n" + 
+					"    ],\r\n" + 
+					"    \"condicaoPagamento\": [\r\n" + 
+					"        {\r\n" + 
+					"            \"valorEntrada\": 0,\r\n" + 
+					"            \"qtdeParcelas\": 10\r\n" + 
+					"        }\r\n" + 
+					"    ]\r\n" + 
+					"}") 
+			@RequestBody CalculoEntrada calculoEntrada) {
 
 		List<CalculoSaida> calculosSaida = new ArrayList<CalculoSaida>();
 		if(calculoEntrada == null || calculoEntrada.getProduto() == null || calculoEntrada.getCondicaoPagamento() == null ||
@@ -54,11 +75,13 @@ public class BackendController {
 	    return new ResponseEntity<List<CalculoSaida>>(calculosSaida, HttpStatus.OK);
 	}
 
+	@ApiOperation(value="Verifica se o servico está ativo")
     @RequestMapping("/")
     public String ping() {
         return "Sorry! My answers are limited. You have to ask the right questions!";
     }
 
+	@ApiOperation(value="Teste")
     @RequestMapping("/test")
     public String test() {
     	return "Testing 1, 2, 3!";

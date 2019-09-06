@@ -8,11 +8,40 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
+@EnableSwagger2
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+    
+    @Bean
+    public Docket api() { 
+    	@SuppressWarnings("deprecation")
+		ApiInfo apiInfo = new ApiInfo(
+				"ConsultaSelic REST API",
+				"Efetua o parcelamento pela Taxa Selic.",
+				"Versão API 1.0",
+				"Termos de uso",
+				"mauriciocwb@gmail.com",
+				"API License",
+				"/calculoSelic"
+				);
+        
+        return new Docket(DocumentationType.SWAGGER_2)  
+          .select()                                  
+          .apis(RequestHandlerSelectors.basePackage("localhost:8080"))
+          .paths(PathSelectors.any())                          
+          .build()
+          .apiInfo(apiInfo);
     }
 
     @Bean
