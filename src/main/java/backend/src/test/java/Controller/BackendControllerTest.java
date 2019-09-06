@@ -31,7 +31,7 @@ public class BackendControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void getParcelas() throws Exception {    	
+    public void get2Parcelas() throws Exception {    	
         mvc.perform(MockMvcRequestBuilders.post("/calculoSelic").contentType(MediaType.APPLICATION_JSON)
         		.content("{" + 
         				"    \"produto\": [" + 
@@ -50,6 +50,27 @@ public class BackendControllerTest {
         				"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("[{\"parcela\":1,\"valor\":51156.61,\"taxaJuros\":1.15},{\"parcela\":2,\"valor\":51156.61,\"taxaJuros\":1.15}]"));
+    }
+    @Test
+    public void get10Parcelas() throws Exception {    	
+        mvc.perform(MockMvcRequestBuilders.post("/calculoSelic").contentType(MediaType.APPLICATION_JSON)
+        		.content("{" + 
+        				"    \"produto\": [" + 
+        				"        {" + 
+        				"            \"codigo\": 123," + 
+        				"            \"nome\": \"Nome do Produto\"," + 
+        				"            \"valor\": 100000" + 
+        				"        }" + 
+        				"    ]," + 
+        				"    \"condicaoPagamento\": [" + 
+        				"        {" + 
+        				"            \"valorEntrada\": 0," + 
+        				"            \"qtdeParcelas\": 10" + 
+        				"        }" + 
+        				"    ]" + 
+        				"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("[{\"parcela\":1,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":2,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":3,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":4,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":5,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":6,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":7,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":8,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":9,\"valor\":11211.37,\"taxaJuros\":1.15},{\"parcela\":10,\"valor\":11211.37,\"taxaJuros\":1.15}]"));
     }
     
     @Test
