@@ -27,13 +27,13 @@ public class Application {
     public Docket api() { 
     	@SuppressWarnings("deprecation")
 		ApiInfo apiInfo = new ApiInfo(
-				"ConsultaSelic REST API",
-				"Efetua o parcelamento pela Taxa Selic.",
+				"Produtos Admin",
+				"Administra lista de produtos",
 				"Versão API 1.0",
 				"Termos de uso",
 				"mauriciocwb@gmail.com",
 				"API License",
-				"/calculoSelic"
+				"/produtos"
 				);
         
         return new Docket(DocumentationType.SWAGGER_2)  
